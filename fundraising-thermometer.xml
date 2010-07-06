@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Fundraising Thermometer" />
+  <Content type="html">
+    <![CDATA[
+
+        <script>
+            function genGraphURL(goal, currentValue, backgroundColor, foregroundColor){
+                
+                //  base chart string
+                var chartString = "http://chart.apis.google.com/chart?cht=bvs";
+                
+                //  add size
+                chartString = chartString + "&chs=100x400";
+
+                //  add colors
+                chartString = chartString + "&chco=" + backgroundColor + "," + foregroundColor;
+
+                //  setup range
+                chartString = chartString + "&chd=t:" + currentValue + "|" + goal;
+                chartString = chartString + "&chm=N$,000000,0,-1,11|N$,000000,1,0,11&chds=0," + goal;
+                chartString = chartString + "&chxt=y&chxr=0,0," + goal + "," + goal/10;
+
+                //  set bar width
+                chartString = chartString + "&chbh=45";
+
+                return chartString;
+            }
+
+            function makeGraph(){
+                
+                //  get the id of the chart image holder
+                var chartImage = document.getElementById("chart");
+                var goal = document.getElementById("goal").value;
+                var current = document.getElementById("current").value;
+                var bcolor = document.getElementById("bcolor").value;
+                var fcolor = document.getElementById("fcolor").value;
+
+                var url = genGraphURL(goal, current, bcolor, fcolor);
+                var chartURLBox = document.getElementById("charturl");
+                chartURLBox.value = url;
+
+                //  set the source property
+                chartImage.src = url;
+            }
+       </script>
+    </head>
+    <body>
+        <img id="chart"/>
+        <br>
+        Chart URL:<input type="text" size="100" id="charturl"/>
+        <br>
+        <ul>
+            <li>goal: <input type="text" id="goal"/>
+            <li>current: <input type="text" id="current"/>
+            <li>background color: <input type="text" id="bcolor" value="592E76"/>
+            <li>foreground color: <input type="text" id="fcolor" value="BFBC8F"/>
+        </ul>
+
+        <button id="makechart" value="make chart" onClick="makeGraph()">make chart</button>
+
+    ]]>
+  </Content>
+</Module>
