@@ -42,7 +42,7 @@
                 var chartImage = document.getElementById("chart");
 
                 var goal = prefs.getString("fundingGoal"); //document.getElementById("goal").value;
-                var current = prefs.getStrign("currentFunds"); //document.getElementById("current").value;
+                var current = prefs.getString("currentFunds"); //document.getElementById("current").value;
                 var bcolor = "592E76"; //document.getElementById("bcolor").value;
                 var fcolor = "BFBC8F"; //document.getElementById("fcolor").value;
 
