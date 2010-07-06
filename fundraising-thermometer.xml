@@ -32,7 +32,10 @@
 
                 //  set bar width
                 chartString = chartString + "&chbh=45";
-
+                
+                //  debug
+                alert(chartString);
+                
                 return chartString;
             }
 
