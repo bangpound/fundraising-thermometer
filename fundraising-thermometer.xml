@@ -34,10 +34,7 @@
                 chartString = chartString + "&chbh=45";
                 
                 //  set scaling
-                chartString = chartString + "&chds=0," + goal;
-                
-                //  debug
-                alert(chartString);
+                chartString = chartString + "&chds=0," + goal;             
                 
                 return chartString;
             }
