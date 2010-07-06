@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="Fundraising Thermometer" />
+  <ModulePrefs title="Fundraising Thermometer" height="400" />
+  <UserPref name="fundingGoal" display_name="Goal" required="true" />
+  <UserPref name="currentFunds" display_name="Current Funds" default_value="0"/>
+
   <Content type="html">
     <![CDATA[
 
         <script>
+	    //	load prefs
+	    var prefs = new gadgets.Prefs();
+
+	    //  register startup function
+	    gadgets.util.registerOnLoadHandler(makeGraph); 
+
             function genGraphURL(goal, currentValue, backgroundColor, foregroundColor){
                 
                 //  base chart string
@@ -31,22 +40,22 @@
                 
                 //  get the id of the chart image holder
                 var chartImage = document.getElementById("chart");
-                var goal = document.getElementById("goal").value;
-                var current = document.getElementById("current").value;
-                var bcolor = document.getElementById("bcolor").value;
-                var fcolor = document.getElementById("fcolor").value;
+
+                var goal = prefs.getString("fundingGoal"); //document.getElementById("goal").value;
+                var current = prefs.getStrign("currentFunds"); //document.getElementById("current").value;
+                var bcolor = "592E76"; //document.getElementById("bcolor").value;
+                var fcolor = "BFBC8F"; //document.getElementById("fcolor").value;
 
                 var url = genGraphURL(goal, current, bcolor, fcolor);
-                var chartURLBox = document.getElementById("charturl");
-                chartURLBox.value = url;
+                //var chartURLBox = document.getElementById("charturl");
+                //chartURLBox.value = url;
 
                 //  set the source property
                 chartImage.src = url;
             }
        </script>
-    </head>
-    <body>
         <img id="chart"/>
+<!--
         <br>
         Chart URL:<input type="text" size="100" id="charturl"/>
         <br>
@@ -58,7 +67,7 @@
         </ul>
 
         <button id="makechart" value="make chart" onClick="makeGraph()">make chart</button>
-
+-->
     ]]>
   </Content>
 </Module>
