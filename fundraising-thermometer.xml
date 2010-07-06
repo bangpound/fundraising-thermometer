@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="Fundraising Thermometer" height="400" />
+  <ModulePrefs title="Fundraising Thermometer" height="100" />
   <UserPref name="fundingGoal" display_name="Goal" required="true" />
   <UserPref name="currentFunds" display_name="Current Funds" default_value="0"/>
 
@@ -17,10 +17,10 @@
             function genGraphURL(goal, currentValue, backgroundColor, foregroundColor){
                 
                 //  base chart string
-                var chartString = "http://chart.apis.google.com/chart?cht=bvs";
+                var chartString = "http://chart.apis.google.com/chart?cht=bhs";
                 
                 //  add size
-                chartString = chartString + "&chs=100x400";
+                chartString = chartString + "&chs=300x100";
 
                 //  add colors
                 chartString = chartString + "&chco=" + backgroundColor + "," + foregroundColor;
