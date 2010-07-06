@@ -20,7 +20,7 @@
                 var chartString = "http://chart.apis.google.com/chart?cht=bhs";
                 
                 //  add size
-                chartString = chartString + "&chs=500x100";
+                chartString = chartString + "&chs=450x100";
 
                 //  add colors
                 chartString = chartString + "&chco=" + backgroundColor + "," + foregroundColor;
