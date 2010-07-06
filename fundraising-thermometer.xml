@@ -27,7 +27,7 @@
 
                 //  setup range
                 chartString = chartString + "&chd=t:" + currentValue;
-                chartString = chartString + "&chm=N$,000000,0,-1,11;
+                chartString = chartString + "&chm=N$,000000,0,-1,11";
                 chartString = chartString + "&chxt=y&chxr=0,0," + goal + "," + goal/10;
 
                 //  set bar width
