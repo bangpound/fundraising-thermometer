@@ -3,6 +3,7 @@
     <ModulePrefs title="Fundraising Thermometer">
         <Require feature="dynamic-height"/>
     </ModulePrefs>
+    <UserPref name="customTitle" display_name="Custom title" required="true" default_value="Fundraising Thermometer" />
     <UserPref name="fundingGoal" display_name="Funding goal" required="true" />
     <UserPref name="currentFunds" display_name="Current funds" default_value="0" required="true"/>
     <UserPref name="orientation" display_name="Orientation" datatype="enum" default_value="vertical">
@@ -78,6 +79,9 @@
                 }
 
                 function makeGraph(){
+                    
+                    //  update the gadget title
+                    gadgets.window.setTitle(prefs.getString("customTitle"));
                     
                     //  get the id of the chart image holder
                     var chartImage = document.getElementById("chart");
