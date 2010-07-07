@@ -20,7 +20,7 @@
                 function genGraphURL(goal, currentValue, backgroundColor, foregroundColor){
                     
                     //  base chart string
-                    var chartString = "http://chart.apis.google.com/chart?cht=bhs";
+                    var chartString = "http://chart.apis.google.com/chart?cht=" + prefs.getString("orientation");
                     
                     //  add size
                     chartString = chartString + "&chs=450x100";
