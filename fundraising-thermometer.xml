@@ -65,7 +65,10 @@
                     chartString = chartString + "&chbh=" + barWidth;
                     
                     //  set scaling
-                    chartString = chartString + "&chds=0," + goal;             
+                    chartString = chartString + "&chds=0," + goal;  
+
+                    //  set axis label
+                    chartString = chartString + "&chxl=0:|Start|Goal";
                     
                     return chartString;
                 }
