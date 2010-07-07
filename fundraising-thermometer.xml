@@ -12,6 +12,7 @@
     <UserPref name="goalColor" display_name="Goal bar color" default_value="592E76" required="true"/>
     <UserPref name="currentColor" display_name="Current funds bar color" default_value="BFBC8F" required="true"/>
     <UserPref name="chartSize" display_name="Size" default_value="450" required="true"/>
+    <UserPref name="tickmarks" display_name="Tickmarks" default_value="10" required="true"/>
     <UserPref name="barWidth" display_name="Chart bar width" default_value="45" required="true"/>
     <Content type="html">
         <![CDATA[
@@ -23,13 +24,14 @@
             //  register startup function
             gadgets.util.registerOnLoadHandler(makeGraph); 
 
-                function genGraphURL(goal, currentValue, backgroundColor, foregroundColor, orientation, size, barWidth){
+                function genGraphURL(goal, currentValue, backgroundColor, foregroundColor, orientation, size, tickmarks, barWidth){
                     
                     //  base chart string
                     var chartString = "http://chart.apis.google.com/chart?cht=";// + prefs.getString("orientation");
                     
                     //  orientation
                     if(orientation === "vertical"){
+                    
                         //  use the vertical chart
                         chartString = chartString + "bvs&chxt=y";
                         
@@ -41,6 +43,7 @@
                         
                     } else {
                     
+                        //  use the horizontal chart
                         chartString = chartString + "bhs&chxt=x";
                         
                         //  size the horizontal axis                        
@@ -48,10 +51,7 @@
                         
                         //  also adjust gadget height
                         gadgets.window.adjustHeight(100);
-                    }
-                    
-                    //  add size
-                    //chartString = chartString + "&chs=" + height + "x" + width;
+                    }                   
 
                     //  add colors
                     chartString = chartString + "&chco=" + backgroundColor + "," + foregroundColor;
@@ -59,7 +59,6 @@
                     //  setup range
                     chartString = chartString + "&chd=t:" + currentValue + "|" + goal;
                     chartString = chartString + "&chm=N$,000000,0,-1,11";
-                    //chartString = chartString + "&chxr=0,0," + goal + "," + goal/10;
 
                     //  set bar width
                     chartString = chartString + "&chbh=" + barWidth;
@@ -67,9 +66,9 @@
                     //  set scaling
                     chartString = chartString + "&chds=0," + goal;  
 
-                    //  set axis label
+                    //  set axis labels
                     chartString = chartString + "&chxl=0:";
-                    for(i=0;i<=goal;i=i+(goal/10)) {
+                    for(i=0;i<=goal;i=i+(goal/tickmarks)) {
                         
                         chartString = chartString + "|$" + i;
                     }
@@ -88,9 +87,10 @@
                     var fcolor = prefs.getString("currentColor");//"BFBC8F"; //document.getElementById("fcolor").value;
                     var orientation = prefs.getString("orientation");
                     var size = prefs.getString("chartSize");
+                    var tickmarks = prefs.getString("tickmarks");
                     var barWidth = prefs.getString("barWidth");
 
-                    var url = genGraphURL(goal, current, bcolor, fcolor, orientation, size, barWidth);
+                    var url = genGraphURL(goal, current, bcolor, fcolor, orientation, size, tickmarks, barWidth);
                     
                     //var chartURLBox = document.getElementById("charturl");
                     //chartURLBox.value = url;
