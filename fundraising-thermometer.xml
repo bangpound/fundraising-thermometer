@@ -34,15 +34,17 @@
                         chartString = chartString + "bvs&chxt=y";
                         
                         //  size the vertical axis
-                        chartString = chartString + "&chs=" + size + "x100";
+                        chartString = chartString + "&chs=" + "100x" + size;
                         
                         //  also adjust gadget height
-                        gadgets.window.adjustHeight(size);
+                        gadgets.window.adjustHeight(size + 10);
+                        
                     } else {
+                    
                         chartString = chartString + "bhs&chxt=x";
                         
-                        //  size the vertical axis
-                        chartString = chartString + "&chs=" + "100x" + size;
+                        //  size the horizontal axis                        
+                        chartString = chartString + "&chs=" + size + "x100";
                         
                         //  also adjust gadget height
                         gadgets.window.adjustHeight(100);
