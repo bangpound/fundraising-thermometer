@@ -1,76 +1,63 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="Fundraising Thermometer"/>
-  <UserPref name="fundingGoal" display_name="Goal" required="true" />
-  <UserPref name="currentFunds" display_name="Current Funds" default_value="0"/>
+    <ModulePrefs title="Fundraising Thermometer"/>
+    <UserPref name="fundingGoal" display_name="Goal" required="true" />
+    <UserPref name="currentFunds" display_name="Current Funds" default_value="0"/>
+    
+    <Content type="html">
+        <![CDATA[
 
-  <Content type="html">
-    <![CDATA[
+            <script>
+            //	load prefs
+            var prefs = new gadgets.Prefs();
 
-        <script>
-	    //	load prefs
-	    var prefs = new gadgets.Prefs();
+            //  register startup function
+            gadgets.util.registerOnLoadHandler(makeGraph); 
 
-	    //  register startup function
-	    gadgets.util.registerOnLoadHandler(makeGraph); 
+                function genGraphURL(goal, currentValue, backgroundColor, foregroundColor){
+                    
+                    //  base chart string
+                    var chartString = "http://chart.apis.google.com/chart?cht=bhs";
+                    
+                    //  add size
+                    chartString = chartString + "&chs=450x100";
 
-            function genGraphURL(goal, currentValue, backgroundColor, foregroundColor){
-                
-                //  base chart string
-                var chartString = "http://chart.apis.google.com/chart?cht=bhs";
-                
-                //  add size
-                chartString = chartString + "&chs=450x100";
+                    //  add colors
+                    chartString = chartString + "&chco=" + backgroundColor + "," + foregroundColor;
 
-                //  add colors
-                chartString = chartString + "&chco=" + backgroundColor + "," + foregroundColor;
+                    //  setup range
+                    chartString = chartString + "&chd=t:" + currentValue + "|" + goal;
+                    chartString = chartString + "&chm=N$,000000,0,-1,11";
+                    chartString = chartString + "&chxt=x&chxr=0,0," + goal + "," + goal/10;
 
-                //  setup range
-                chartString = chartString + "&chd=t:" + currentValue + "|" + goal;
-                chartString = chartString + "&chm=N$,000000,0,-1,11";
-                chartString = chartString + "&chxt=x&chxr=0,0," + goal + "," + goal/10;
+                    //  set bar width
+                    chartString = chartString + "&chbh=45";
+                    
+                    //  set scaling
+                    chartString = chartString + "&chds=0," + goal;             
+                    
+                    return chartString;
+                }
 
-                //  set bar width
-                chartString = chartString + "&chbh=45";
-                
-                //  set scaling
-                chartString = chartString + "&chds=0," + goal;             
-                
-                return chartString;
-            }
+                function makeGraph(){
+                    
+                    //  get the id of the chart image holder
+                    var chartImage = document.getElementById("chart");
 
-            function makeGraph(){
-                
-                //  get the id of the chart image holder
-                var chartImage = document.getElementById("chart");
+                    var goal = prefs.getString("fundingGoal"); //document.getElementById("goal").value;
+                    var current = prefs.getString("currentFunds"); //document.getElementById("current").value;
+                    var bcolor = "592E76"; //document.getElementById("bcolor").value;
+                    var fcolor = "BFBC8F"; //document.getElementById("fcolor").value;
 
-                var goal = prefs.getString("fundingGoal"); //document.getElementById("goal").value;
-                var current = prefs.getString("currentFunds"); //document.getElementById("current").value;
-                var bcolor = "592E76"; //document.getElementById("bcolor").value;
-                var fcolor = "BFBC8F"; //document.getElementById("fcolor").value;
+                    var url = genGraphURL(goal, current, bcolor, fcolor);
+                    //var chartURLBox = document.getElementById("charturl");
+                    //chartURLBox.value = url;
 
-                var url = genGraphURL(goal, current, bcolor, fcolor);
-                //var chartURLBox = document.getElementById("charturl");
-                //chartURLBox.value = url;
-
-                //  set the source property
-                chartImage.src = url;
-            }
-       </script>
-        <img id="chart"/>
-<!--
-        <br>
-        Chart URL:<input type="text" size="100" id="charturl"/>
-        <br>
-        <ul>
-            <li>goal: <input type="text" id="goal"/>
-            <li>current: <input type="text" id="current"/>
-            <li>background color: <input type="text" id="bcolor" value="592E76"/>
-            <li>foreground color: <input type="text" id="fcolor" value="BFBC8F"/>
-        </ul>
-
-        <button id="makechart" value="make chart" onClick="makeGraph()">make chart</button>
--->
-    ]]>
-  </Content>
+                    //  set the source property
+                    chartImage.src = url;
+                }
+           </script>
+            <img id="chart"/>
+        ]]>
+    </Content>
 </Module>
