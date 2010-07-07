@@ -3,31 +3,32 @@
     <ModulePrefs title="Fundraising Thermometer">
         <Require feature="dynamic-height"/>
     </ModulePrefs>
-    <UserPref name="fundingGoal" display_name="Goal" required="true" />
-    <UserPref name="currentFunds" display_name="Current Funds" default_value="0" required="true"/>
-    <UserPref name="orientation" display_name="Orientation" datatype="enum" default_value="bvs">
+    <UserPref name="fundingGoal" display_name="Funding goal" required="true" />
+    <UserPref name="currentFunds" display_name="Current funds" default_value="0" required="true"/>
+    <UserPref name="orientation" display_name="Orientation" datatype="enum" default_value="vertical">
         <EnumValue value="vertical" display_value="Vertical"/>
         <EnumValue value="horizontal" display_value="Horizontal"/>
     </UserPref>
     <UserPref name="goalColor" display_name="Goal bar color" default_value="592E76" required="true"/>
     <UserPref name="currentColor" display_name="Current funds bar color" default_value="BFBC8F" required="true"/>
     <UserPref name="chartSize" display_name="Size" default_value="450" required="true"/>
-    <UserPref name="tickmarks" display_name="Tickmarks" default_value="10" required="true"/>
+    <UserPref name="tickmarks" display_name="Number of tickmarks" default_value="10" required="true"/>
     <UserPref name="barWidth" display_name="Chart bar width" default_value="45" required="true"/>
     <Content type="html">
         <![CDATA[
 
             <script>
-            //	load prefs
-            var prefs = new gadgets.Prefs();
+            
+                //	load prefs
+                var prefs = new gadgets.Prefs();
 
-            //  register startup function
-            gadgets.util.registerOnLoadHandler(makeGraph); 
+                //  register startup function
+                gadgets.util.registerOnLoadHandler(makeGraph); 
 
                 function genGraphURL(goal, currentValue, backgroundColor, foregroundColor, orientation, size, tickmarks, barWidth){
                     
                     //  base chart string
-                    var chartString = "http://chart.apis.google.com/chart?cht=";// + prefs.getString("orientation");
+                    var chartString = "http://chart.apis.google.com/chart?cht=";
                     
                     //  orientation
                     if(orientation === "vertical"){
@@ -81,10 +82,10 @@
                     //  get the id of the chart image holder
                     var chartImage = document.getElementById("chart");
 
-                    var goal = prefs.getString("fundingGoal"); //document.getElementById("goal").value;
-                    var current = prefs.getString("currentFunds"); //document.getElementById("current").value;
-                    var bcolor = prefs.getString("goalColor");//"592E76"; //document.getElementById("bcolor").value;
-                    var fcolor = prefs.getString("currentColor");//"BFBC8F"; //document.getElementById("fcolor").value;
+                    var goal = prefs.getString("fundingGoal");
+                    var current = prefs.getString("currentFunds");
+                    var bcolor = prefs.getString("goalColor");
+                    var fcolor = prefs.getString("currentColor");
                     var orientation = prefs.getString("orientation");
                     var size = prefs.getString("chartSize");
                     var tickmarks = prefs.getString("tickmarks");
@@ -92,13 +93,12 @@
 
                     var url = genGraphURL(goal, current, bcolor, fcolor, orientation, size, tickmarks, barWidth);
                     
-                    //var chartURLBox = document.getElementById("charturl");
-                    //chartURLBox.value = url;
-
                     //  set the source property
                     chartImage.src = url;
                 }
-           </script>
+                
+            </script>
+            
             <img id="chart"/>
         ]]>
     </Content>
