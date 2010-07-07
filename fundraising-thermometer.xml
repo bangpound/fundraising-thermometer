@@ -2,11 +2,16 @@
 <Module>
     <ModulePrefs title="Fundraising Thermometer"/>
     <UserPref name="fundingGoal" display_name="Goal" required="true" />
-    <UserPref name="currentFunds" display_name="Current Funds" default_value="0"/>
+    <UserPref name="currentFunds" display_name="Current Funds" default_value="0" required="true"/>
     <UserPref name="orientation" display_name="Orientation" datatype="enum" default_value="bvs">
         <EnumValue value="vertical" display_value="Vertical"/>
         <EnumValue value="horizontal" display_value="Horizontal"/>
     </UserPref>
+    <UserPref name="goalColor" display_name="Goal bar color" default_value="592E76" required="true"/>
+    <UserPref name="currentColor" display_name="Current funds bar color" default_value="BFBC8F" required="true"/>
+    <UserPref name="chartWidth" display_name="Width" default_value="100" required="true"/>
+    <UserPref name="chartHeight" display_name="Height" default_value="450" required="true"/>
+    <UserPref name="barWidth" display_name="Chart bar width" default_value="45" required="true"/>
     <Content type="html">
         <![CDATA[
 
@@ -17,7 +22,7 @@
             //  register startup function
             gadgets.util.registerOnLoadHandler(makeGraph); 
 
-                function genGraphURL(goal, currentValue, backgroundColor, foregroundColor, orientation){
+                function genGraphURL(goal, currentValue, backgroundColor, foregroundColor, orientation, width, height, barWidth){
                     
                     //  base chart string
                     var chartString = "http://chart.apis.google.com/chart?cht=";// + prefs.getString("orientation");
@@ -30,7 +35,7 @@
                     }
                     
                     //  add size
-                    chartString = chartString + "&chs=450x100";
+                    chartString = chartString + "&chs=" + height + "x" + width;
 
                     //  add colors
                     chartString = chartString + "&chco=" + backgroundColor + "," + foregroundColor;
@@ -41,7 +46,7 @@
                     chartString = chartString + "&chxr=0,0," + goal + "," + goal/10;
 
                     //  set bar width
-                    chartString = chartString + "&chbh=45";
+                    chartString = chartString + "&chbh=" + barWidth;
                     
                     //  set scaling
                     chartString = chartString + "&chds=0," + goal;             
@@ -56,11 +61,14 @@
 
                     var goal = prefs.getString("fundingGoal"); //document.getElementById("goal").value;
                     var current = prefs.getString("currentFunds"); //document.getElementById("current").value;
-                    var bcolor = "592E76"; //document.getElementById("bcolor").value;
-                    var fcolor = "BFBC8F"; //document.getElementById("fcolor").value;
+                    var bcolor = prefs.getString("goalColor");//"592E76"; //document.getElementById("bcolor").value;
+                    var fcolor = prefs.getString("currentColor");//"BFBC8F"; //document.getElementById("fcolor").value;
                     var orientation = prefs.getString("orientation");
+                    var width = prefs.getString("chartWidth");
+                    var height = prefs.getString("chartHeight");
+                    var barWidth = prefs.getString("barWidth");
 
-                    var url = genGraphURL(goal, current, bcolor, fcolor, orientation);
+                    var url = genGraphURL(goal, current, bcolor, fcolor, orientation, width, height, barWidth);
                     
                     //var chartURLBox = document.getElementById("charturl");
                     //chartURLBox.value = url;
