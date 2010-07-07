@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-    <ModulePrefs title="Fundraising Thermometer"/>
+    <ModulePrefs title="Fundraising Thermometer">
+        <Require feature="dynamic-height"/>
+    </ModulePrefs>
     <UserPref name="fundingGoal" display_name="Goal" required="true" />
     <UserPref name="currentFunds" display_name="Current Funds" default_value="0" required="true"/>
     <UserPref name="orientation" display_name="Orientation" datatype="enum" default_value="bvs">
@@ -30,8 +32,14 @@
                     //  orientation
                     if(orientation === "vertical"){
                         chartString = chartString + "bvs&chxt=y";
+                        
+                        //  also adjust gadget height
+                        gadgets.window.adjustHeight(height);
                     } else {
                         chartString = chartString + "bhs&chxt=x";
+                        
+                        //  also adjust gadget height
+                        gadgets.window.adjustHeight(width);
                     }
                     
                     //  add size
