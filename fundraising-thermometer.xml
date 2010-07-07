@@ -68,7 +68,11 @@
                     chartString = chartString + "&chds=0," + goal;  
 
                     //  set axis label
-                    chartString = chartString + "&chxl=0:|Start|Goal";
+                    chartString = chartString + "&chxl=0:";
+                    for(i=0;i<goal;i=i+(goal/10)) {
+                        
+                        chartString = chartString + "|$" + i;
+                    }
                     
                     return chartString;
                 }
