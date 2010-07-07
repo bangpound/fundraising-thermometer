@@ -69,7 +69,7 @@
 
                     //  set axis label
                     chartString = chartString + "&chxl=0:";
-                    for(i=0;i<goal;i=i+(goal/10)) {
+                    for(i=0;i<=goal;i=i+(goal/10)) {
                         
                         chartString = chartString + "|$" + i;
                     }
