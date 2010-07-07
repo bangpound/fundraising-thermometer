@@ -4,8 +4,8 @@
     <UserPref name="fundingGoal" display_name="Goal" required="true" />
     <UserPref name="currentFunds" display_name="Current Funds" default_value="0"/>
     <UserPref name="orientation" display_name="Orientation" datatype="enum" default_value="bvs">
-        <EnumValue value="bvs" display_value="Vertical"/>
-        <EnumValue value="bhs" display_value="Horizontal"/>
+        <EnumValue value="vertical" display_value="Vertical"/>
+        <EnumValue value="horizontal" display_value="Horizontal"/>
     </UserPref>
     <Content type="html">
         <![CDATA[
@@ -17,10 +17,17 @@
             //  register startup function
             gadgets.util.registerOnLoadHandler(makeGraph); 
 
-                function genGraphURL(goal, currentValue, backgroundColor, foregroundColor){
+                function genGraphURL(goal, currentValue, backgroundColor, foregroundColor, orientation){
                     
                     //  base chart string
-                    var chartString = "http://chart.apis.google.com/chart?cht=" + prefs.getString("orientation");
+                    var chartString = "http://chart.apis.google.com/chart?cht=";// + prefs.getString("orientation");
+                    
+                    //  orientation
+                    if(orientation === "vertical"){
+                        chartString = chartString + "bvs&chxt=y";
+                    } else {
+                        chartString = chartString + "bhs&chxt=x";
+                    }
                     
                     //  add size
                     chartString = chartString + "&chs=450x100";
@@ -31,7 +38,7 @@
                     //  setup range
                     chartString = chartString + "&chd=t:" + currentValue + "|" + goal;
                     chartString = chartString + "&chm=N$,000000,0,-1,11";
-                    chartString = chartString + "&chxt=x&chxr=0,0," + goal + "," + goal/10;
+                    chartString = chartString + "&chxr=0,0," + goal + "," + goal/10;
 
                     //  set bar width
                     chartString = chartString + "&chbh=45";
@@ -51,8 +58,10 @@
                     var current = prefs.getString("currentFunds"); //document.getElementById("current").value;
                     var bcolor = "592E76"; //document.getElementById("bcolor").value;
                     var fcolor = "BFBC8F"; //document.getElementById("fcolor").value;
+                    var orientation = prefs.getString("orientation");
 
-                    var url = genGraphURL(goal, current, bcolor, fcolor);
+                    var url = genGraphURL(goal, current, bcolor, fcolor, orientation);
+                    
                     //var chartURLBox = document.getElementById("charturl");
                     //chartURLBox.value = url;
 
