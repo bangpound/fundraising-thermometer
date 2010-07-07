@@ -2,6 +2,7 @@
 <Module>
     <ModulePrefs title="Fundraising Thermometer">
         <Require feature="dynamic-height"/>
+        <Require feature="settitle"/>
     </ModulePrefs>
     <UserPref name="customTitle" display_name="Custom title" required="true" default_value="Fundraising Thermometer" />
     <UserPref name="fundingGoal" display_name="Funding goal" required="true" />
