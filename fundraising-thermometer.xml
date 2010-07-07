@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="Fundraising Thermometer" height="100" />
+  <ModulePrefs title="Fundraising Thermometer"/>
   <UserPref name="fundingGoal" display_name="Goal" required="true" />
   <UserPref name="currentFunds" display_name="Current Funds" default_value="0"/>
 
