@@ -57,7 +57,7 @@
                     }                   
 
                     //  add colors
-                    chartString = chartString + "&chco=" + backgroundColor + "," + foregroundColor;
+                    chartString = chartString + "&chco=" + foregroundColor + "," + backgroundColor;
 
                     //  setup range
                     chartString = chartString + "&chd=t:" + currentValue + "|" + goal;
